@@ -22,4 +22,8 @@ public class User implements Serializable {
 
     @Column(name="SALARY", nullable=false)
     private double salary;
+
+    public String getName() {
+        return name;
+    }
 }
