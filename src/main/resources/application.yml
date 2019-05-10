@@ -25,9 +25,9 @@ spring:
 spring:
   profiles: prod
   datasource:
-    url: jdbc:mysql://localhost:3306/websystique
-    username: myuser
-    password: mypassword
+    url: jdbc:mysql://192.168.99.100:3306/websystique
+    username: root
+    password: root1234
     driverClassName: com.mysql.jdbc.Driver
     hikari:
       maximum-pool-size: 20
