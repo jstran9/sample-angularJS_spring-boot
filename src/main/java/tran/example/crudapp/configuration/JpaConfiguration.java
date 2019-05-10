@@ -37,7 +37,7 @@ public class JpaConfiguration {
     private int maxPoolSize;
 
     /*
-     * Populate SpringBoot DataSourceProperties object directly from application.yml
+     * Populate SpringBoot DataSourceProperties object directly from application.properties
      * based on prefix.Thanks to .yml, Hierachical data is mapped out of the box with matching-name
      * properties of DataSourceProperties object].
      */
