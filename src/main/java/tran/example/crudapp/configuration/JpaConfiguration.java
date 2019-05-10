@@ -99,8 +99,8 @@ public class JpaConfiguration {
         properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("spring.jpa.hibernate.ddl-auto"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("spring.jpa.show-sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("spring.jpa.properties.hibernate.format_sql"));
-        if(StringUtils.isNotEmpty(environment.getRequiredProperty("spring.jpa.properties.hibernate.default_schema"))){
-            properties.put("hibernate.default_schema", environment.getRequiredProperty("spring.jpa.properties.hibernate.default_schema"));
+        if(StringUtils.isNotEmpty(environment.getRequiredProperty("spring.jpa.properties.hibernate.defaultSchema"))){
+            properties.put("hibernate.default_schema", environment.getRequiredProperty("spring.jpa.properties.hibernate.defaultSchema"));
         }
         return properties;
     }
