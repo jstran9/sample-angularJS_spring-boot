@@ -33,7 +33,7 @@ public class JpaConfiguration {
     @Autowired
     private Environment environment;
 
-    @Value("${datasource.sampleapp.maxPoolSize:10}")
+    @Value("${spring.datasource.hikari.maximum-pool-size}")
     private int maxPoolSize;
 
     /*
@@ -43,7 +43,7 @@ public class JpaConfiguration {
      */
     @Bean
     @Primary
-    @ConfigurationProperties(prefix = "datasource.sampleapp")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSourceProperties dataSourceProperties(){
         return new DataSourceProperties();
     }
@@ -73,7 +73,7 @@ public class JpaConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
-        factoryBean.setPackagesToScan(new String[] { "com.websystique.springboot.model" });
+        factoryBean.setPackagesToScan(new String[] { "tran.example.crudapp.model" });
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
         factoryBean.setJpaProperties(jpaProperties());
         return factoryBean;
@@ -93,12 +93,15 @@ public class JpaConfiguration {
      */
     private Properties jpaProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", environment.getRequiredProperty("datasource.sampleapp.hibernate.dialect"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("datasource.sampleapp.hibernate.hbm2ddl.method"));
-        properties.put("hibernate.show_sql", environment.getRequiredProperty("datasource.sampleapp.hibernate.show_sql"));
-        properties.put("hibernate.format_sql", environment.getRequiredProperty("datasource.sampleapp.hibernate.format_sql"));
-        if(StringUtils.isNotEmpty(environment.getRequiredProperty("datasource.sampleapp.defaultSchema"))){
-            properties.put("hibernate.default_schema", environment.getRequiredProperty("datasource.sampleapp.defaultSchema"));
+        for(Object object : properties.keySet()) {
+            System.out.println(object.toString());
+        }
+        properties.put("hibernate.dialect", environment.getRequiredProperty("spring.jpa.database-platform"));
+        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("spring.jpa.hibernate.ddl-auto"));
+        properties.put("hibernate.show_sql", environment.getRequiredProperty("spring.jpa.show-sql"));
+        properties.put("hibernate.format_sql", environment.getRequiredProperty("spring.jpa.properties.hibernate.format_sql"));
+        if(StringUtils.isNotEmpty(environment.getRequiredProperty("spring.jpa.properties.hibernate.default_schema"))){
+            properties.put("hibernate.default_schema", environment.getRequiredProperty("spring.jpa.properties.hibernate.default_schema"));
         }
         return properties;
     }
